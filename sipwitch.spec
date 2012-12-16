@@ -1,19 +1,20 @@
 %define major 1
 %define libname %mklibname sipwitch %major
-%define develname %mklibname sipwitch -d
+%define devname %mklibname sipwitch -d
 
-Name:		sipwitch
 Summary:	Secure peer-to-peer VoIP server
-Version:	1.2.3
+Name:		sipwitch
+Version:	1.4.0
 Release:	1
 License:	GPLv3+
 Group:		Networking/Instant messaging
 URL:		https://www.gnu.org/software/sipwitch/
-Source0:	http://www.gnutelephony.org/dist/tarballs/%{name}-%{version}.tar.gz
-Patch0:		sipwitch-1.2.3-mdv-configure.patch
-#BuildRequires:	openssl-devel
-BuildRequires:	ucommon-devel
-BuildRequires:	libexosip2-devel
+Source0:	http://ftp.gnu.org/gnu/sipwitch/%{name}-%{version}.tar.gz
+Source1:	http://ftp.gnu.org/gnu/sipwitch/%{name}-%{version}.tar.gz.sig
+Patch0:		sipwitch-1.4.0-mdv-configure.patch
+
+BuildRequires:	exosip-devel
+BuildRequires:	pkgconfig(ucommon)
 
 %description
 GNU SIP Witch is a secure peer-to-peer VoIP server that uses the SIP protocol.
@@ -44,8 +45,6 @@ about freedom to communicate and the removal of artificial barriers
 and constraints whether imposed by monopoly service providers
 or by governments.
 
-#------------------------------------------------------------------------------
-
 %package -n %{libname}
 Summary:	GNU SIP Witch shared library
 Group:		System/Libraries
@@ -53,36 +52,25 @@ Group:		System/Libraries
 %description -n %{libname}
 This package containg shared libraries for GNU SIP Witch.
 
-%files -n %{libname}
-%{_libdir}/libsipwitch.so.%{major}*
-
-#------------------------------------------------------------------------------
-
-%package -n %{develname}
+%package -n %{devname}
 Summary:	GNU SIP Witch development files
 Group:		System/Libraries
 
-%description -n %{develname}
+%description -n %{devname}
 This package containg development files for GNU SIP Witch library.
-
-%files -n %{develname}
-%{_includedir}/sipwitch
-%{_libdir}/pkgconfig/libsipwitch.pc
-%{_libdir}/libsipwitch.so
-
-#------------------------------------------------------------------------------
 
 %prep
 %setup -q
-%patch0 -p1
+%apply_patches
 autoreconf
 
 %build
-%configure \
+%configure2_5x \
 	--disable-static \
 	--enable-openssl \
 	--with-initrddir=%{_initddir} \
 	--with-cgibindir=%{_libdir}/%{name}/cgi-bin
+
 %make
 
 %install
@@ -98,8 +86,17 @@ autoreconf
 %config(noreplace) %{_sysconfdir}/sysconfig/sipwitch
 %config(noreplace) %{_sysconfdir}/xdg/autostart/switchview-autostart.desktop
 %{_bindir}/*
-%{_libdir}/%{name}
 %{_sbindir}/sipw
+%{_libdir}/%{name}
 %{_datadir}/applications/switchview.desktop
-%{_mandir}/man?/*
 %{_datadir}/pixmaps/switchview.png
+%{_mandir}/man?/*
+
+%files -n %{libname}
+%{_libdir}/libsipwitch.so.%{major}*
+
+%files -n %{devname}
+%{_includedir}/sipwitch
+%{_libdir}/pkgconfig/libsipwitch.pc
+%{_libdir}/libsipwitch.so
+
