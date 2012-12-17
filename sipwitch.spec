@@ -84,12 +84,9 @@ autoreconf
 %config(noreplace) %{_sysconfdir}/sipwitch.d/lab.xml-example
 %config(noreplace) %{_sysconfdir}/sipwitch.d/tests.xml
 %config(noreplace) %{_sysconfdir}/sysconfig/sipwitch
-%config(noreplace) %{_sysconfdir}/xdg/autostart/switchview-autostart.desktop
 %{_bindir}/*
 %{_sbindir}/sipw
 %{_libdir}/%{name}
-%{_datadir}/applications/switchview.desktop
-%{_datadir}/pixmaps/switchview.png
 %{_mandir}/man?/*
 
 %files -n %{libname}
