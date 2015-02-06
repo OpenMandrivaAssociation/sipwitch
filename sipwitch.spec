@@ -5,7 +5,7 @@
 Summary:	Secure peer-to-peer VoIP server
 Name:		sipwitch
 Version:	1.4.0
-Release:	1
+Release:	2
 License:	GPLv3+
 Group:		Networking/Instant messaging
 URL:		https://www.gnu.org/software/sipwitch/
