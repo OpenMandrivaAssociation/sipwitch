@@ -61,7 +61,7 @@ This package containg development files for GNU SIP Witch library.
 
 %prep
 %setup -q
-%apply_patches
+%autopatch -p1
 autoreconf
 
 %build
