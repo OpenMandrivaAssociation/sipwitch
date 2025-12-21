@@ -13,6 +13,11 @@ Source0:	http://ftp.gnu.org/gnu/sipwitch/%{name}-%{version}.tar.gz
 Source1:	http://ftp.gnu.org/gnu/sipwitch/%{name}-%{version}.tar.gz.sig
 Patch0:		sipwitch-1.4.0-mdv-configure.patch
 
+BuildRequires:	autoconf
+BuildRequires:	automake
+BuildRequires:	libtool-base
+BuildRequires:	slibtool
+BuildRequires:	make
 BuildRequires:	exosip-devel
 BuildRequires:	pkgconfig(ucommon)
 
